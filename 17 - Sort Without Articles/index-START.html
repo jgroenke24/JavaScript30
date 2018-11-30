@@ -48,6 +48,38 @@
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
+function removeArticles(str) {
+  const words = str.split(' ');
+  if (words[0] === "The" || words[0] === "A" || words[0] === "An") {
+    return words.slice(1).join(' ');
+  }
+  return str;
+}
+
+function compare(a, b) {
+  const bandA = removeArticles(a).toUpperCase();
+  const bandB = removeArticles(b).toUpperCase();
+  
+  if (bandA < bandB) {
+    return -1;
+  }
+  
+  if (bandA > bandB) {
+    return 1;
+  }
+  
+  return 0;
+}
+
+const sortedBands = bands.sort(compare);
+
+const bandList = document.querySelector('#bands');
+
+const list = sortedBands
+  .map(band => `<li>${band}</li>`)
+  .join('');
+
+bandList.innerHTML = list;
 
 </script>
 
